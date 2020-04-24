@@ -119,12 +119,21 @@ class RDRFLoginAssistanceForm(PasswordResetForm):
             })
 
             subject_template_name, template_name = _choose_template(user)
-            self.send_mail(
-                subject_template_name,
-                template_name,
-                context,
-                from_email,
-                user.email)
+            logger.debug("sending password reset email ...")
+            logger.debug("subject_template_name = %s" % subject_template_name)
+            logger.debug("template_name = %s" % template_name)
+            logger.debug("context = %s" % context)
+
+            try:
+                self.send_mail(
+                    subject_template_name,
+                    template_name,
+                    context,
+                    from_email,
+                    user.email)
+            except Exception as ex:
+                logger.debug("could not send reset email: %s" % ex)
+                raise
 
 
 # Same as django.contrib.auth.forms.SetPasswordForm but also reactivates the user if it is inactive
