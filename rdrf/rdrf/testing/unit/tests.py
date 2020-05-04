@@ -37,6 +37,7 @@ logger = logging.getLogger(__name__)
 
 
 class CalculatedFunctionsTestCase(TestCase):
+    databases = '__all__'
 
     def setUp(self):
         # Note that we convert the string date as a date django date
@@ -159,6 +160,7 @@ class CalculatedFunctionsTestCase(TestCase):
 
 
 class AbnormalityRulesTestCase(TestCase):
+    databases = '__all__'
 
     def setUp(self):
         self.cde = CommonDataElement()
@@ -311,6 +313,7 @@ class AbnormalityRulesTestCase(TestCase):
 
 
 class MigrateCDESTestCase(TestCase):
+    databases = '__all__'
 
     def setUp(self):
         # source section with multi-value
@@ -392,7 +395,8 @@ class FormFiller(object):
 
 
 class RDRFTestCase(TestCase):
-    fixtures = ['testing_auth', 'testing_users', 'testing_rdrf']
+    fixtures = ['testing_auth.default.json', 'testing_users.default.json', 'testing_rdrf.default.json']
+    databases = '__all__'
 
 
 class TestFormPermissions(RDRFTestCase):
@@ -525,6 +529,7 @@ class ExporterTestCase(RDRFTestCase):
 
 
 class ImporterTestCase(TestCase):
+    databases = '__all__'
 
     def _get_yaml_file(self):
         this_dir = os.path.dirname(__file__)
@@ -789,7 +794,7 @@ class LongitudinalTestCase(FormTestCase):
 
 
 class DeCamelcaseTestCase(TestCase):
-
+    databases = '__all__'
     _EXPECTED_VALUE = "Your Condition"
 
     def test_decamelcase_first_lower(self):
@@ -802,6 +807,7 @@ class DeCamelcaseTestCase(TestCase):
 
 
 class DateFunctionsTestCase(TestCase):
+    databases = '__all__'
 
     def test_number_of_days_function(self):
         from rdrf.forms.fields.calculated_functions import number_of_days
@@ -823,6 +829,8 @@ class FakeClinicalData(object):
 
 
 class TimeStripperTestCase(TestCase):
+    databases = '__all__'
+
     def setUp(self):
         super(TimeStripperTestCase, self).setUp()
 
@@ -1311,6 +1319,8 @@ class TimeStripperTestCase(TestCase):
 
 
 class MinTypeTest(TestCase):
+    databases = '__all__'
+
     def test_string(self):
         from rdrf.helpers.utils import MinType
         bottom = MinType()
@@ -1327,6 +1337,8 @@ class MinTypeTest(TestCase):
 
 
 class StructureChecker(TestCase):
+    databases = '__all__'
+
     def _run_command(self, *args, **kwargs):
         from django.core import management
         import io
@@ -1437,6 +1449,8 @@ class StructureChecker(TestCase):
 
 
 class RemindersTestCase(TestCase):
+    databases = '__all__'
+
     def _run_command(self, *args, **kwargs):
         import io
         out_stream = io.StringIO("")
