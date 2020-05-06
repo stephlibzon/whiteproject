@@ -74,7 +74,7 @@ def stellar_multidb(args):
         if not os.path.isfile(os.path.join(work_dir, 'stellar.yaml')):
             continue
         logger.info("workdir----------")
-        logger.info(workdir)
+        logger.info(work_dir)
         # cd and invoke stellar
         os.chdir(work_dir)
         code, out, err = subprocess_logging(args)
