@@ -47,11 +47,14 @@ def set_site_url():
 
 
 def do_teardown():
+    logger.info("---------- teardown ")
+    logger.info(TEST_DISABLE_TEARDOWN)
     return not TEST_DISABLE_TEARDOWN
 
 
 @before.all
 def before_all():
+    logger.info("---------- before all")
     if not os.path.exists(settings.WRITABLE_DIRECTORY):
         os.makedirs(settings.WRITABLE_DIRECTORY)
     set_site_url()
@@ -59,17 +62,20 @@ def before_all():
 
 
 def delete_cookies():
+    logger.info("---------- del cookies")
     # delete all cookies so when we browse to a url at the start we have to log in
     world.browser.delete_all_cookies()
 
 
 @before.each_example
 def before_scenario(scenario, outline, steps):
+    logger.info("---------- before scenario")
     delete_cookies()
 
 
 @after.each_example
 def after_scenario(scenario, outline, test_steps):
+    logger.info("---------- after scenario")
     passfail = "PASS" if test_steps and all(step.passed for step in test_steps) else "FAIL"
     world.browser.get_screenshot_as_file(os.path.join(
         settings.WRITABLE_DIRECTORY, "{0}-scenario-{1}.png".format(passfail, scenario.name)))

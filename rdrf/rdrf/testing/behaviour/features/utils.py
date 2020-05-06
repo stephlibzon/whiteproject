@@ -35,6 +35,8 @@ def reset_last_login_date():
 
 
 def subprocess_logging(command):
+    logger.info("-------subprocess logging : command-------")
+    logger.info(command)
     p = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     stdout, stderr = p.communicate()
     if stdout:
@@ -49,6 +51,7 @@ def subprocess_logging(command):
 def reset_database_connection():
     from django import db
     db.connection.close()
+    logger.info("--------------db connection closed")
 
 
 def have_snapshot(export_name):
@@ -64,12 +67,14 @@ def stellar_multidb(args):
     rval_code = 0
     rval_out = ''
     rval_err = ''
-
+    logger.info("-------stellar multi db args-------")
+    logger.info(args)
     for work_dir in [some_dir[0] for some_dir in os.walk(stellar_config_path())]:
         # ignore dirs that don't have a stellar config
         if not os.path.isfile(os.path.join(work_dir, 'stellar.yaml')):
             continue
-
+        logger.info("workdir----------")
+        logger.info(workdir)
         # cd and invoke stellar
         os.chdir(work_dir)
         code, out, err = subprocess_logging(args)
@@ -86,16 +91,21 @@ def stellar_multidb(args):
 
 
 def remove_snapshot(snapshot_name):
+    logger.info("----------snapshot_name remove")
+    logger.info(snapshot_name)
     stellar_multidb(["stellar", "remove", snapshot_name])
 
 
 def save_snapshot(snapshot_name):
+    logger.info("----------snapshot_name save")
+    logger.info(snapshot_name)
     if have_snapshot(snapshot_name):
         remove_snapshot(snapshot_name)
     stellar_multidb(["stellar", "snapshot", snapshot_name])
 
 
 def save_minimal_snapshot():
+    logger.info("----------minimal snapshot save")
     # delete everything so we can import clean later
     django_flush()
     django_flush(['--database', 'clinical'])
@@ -105,14 +115,17 @@ def save_minimal_snapshot():
 
 
 def restore_minimal_snapshot():
+    logger.info("----------minimal snapshot restore")
     restore_snapshot("minimal")
 
 
 def restore_snapshot(snapshot_name):
+    logger.info("---------- snapshot restore")
     stellar_multidb(["stellar", "restore", snapshot_name])
 
 
 def load_export(export_name):
+    logger.info("---------- load export")
     """
     To save time cache the stellar snapshots ( one per export file )
     Create / reset on first use
@@ -128,23 +141,28 @@ def load_export(export_name):
 
 
 def django_import(export_name):
+    logger.info("---------- django import")
     django_admin(
         ["import", "{0}/{1}".format(exported_data_path(), export_name)], fail_on_error=True)
 
 
 def django_reloadrules():
+    logger.info("---------- django reload")
     django_admin(["reload_rules"])
 
 
 def django_init_dev():
+    logger.info("---------- django init")
     django_admin(["init", "DEV"])
 
 
 def django_flush(args=[]):
+    logger.info("---------- django flush")
     django_admin(["flush", "--noinput"] + args)
 
 
 def django_migrate(args=[]):
+    logger.info("---------- django migrate")
     django_admin(["migrate", "--noinput"] + args)
 
 
