@@ -340,14 +340,21 @@ class TaskInfoView(APIView):
             res = AsyncResult(task_id)
             if res.ready():
                 cae = CustomActionExecution.objects.get(task_id=task_id)
-                cae.status = "task finished"
-                runtime_delta = datetime.now() - cae.created
-                cae.runtime = runtime_delta.seconds
-                status = res.status
+
+                update = cae.status not in ["task finished", "task failed", "task succeeded"]
+                if update:
+                    cae.status = "task finished"
+                    runtime_delta = datetime.now() - cae.created
+                    cae.runtime = runtime_delta.seconds
+                    cae.save()
                 if res.failed():
                     result = {"status": "error",
                               "message": "Task failed"}
-                    cae.status = "task failed"
+                    if update:
+                        cae.status = "task failed"
+                        runtime_delta = datetime.now() - cae.created
+                        cae.runtime = runtime_delta.seconds
+                        cae.save()
                 elif res.successful():
                     cae.status = "task succeeded"
                     task_result = res.result
