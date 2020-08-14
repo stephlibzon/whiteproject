@@ -6,7 +6,7 @@ start_dir = os.getcwd()
 requirements = [
     "ccg-django-utils==0.4.2",
     "celery==4.4.2",
-    "Django==2.1.15",
+    "Django==2.2.13",
     "django-ajax-selects==1.7.1",
     "django-anymail==7.0.0",
     "django-countries==5.5",
