@@ -19,9 +19,9 @@ export const store = createStore(
     composeEnhancers(applyMiddleware(thunk))
 );
 
-const unsubscribe = store.subscribe(() =>
-    global.console.log(store.getState())
-)
+//const unsubscribe = store.subscribe(() =>
+//    global.console.log(store.getState())
+//)
 
 ReactDOM.render(<Provider store={store}>
     <App />
@@ -31,5 +31,3 @@ ReactDOM.render(<Provider store={store}>
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();
-
-
