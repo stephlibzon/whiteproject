@@ -6,6 +6,18 @@ from ccg_django_utils.conf import EnvConfig
 
 logger = logging.getLogger(__name__)
 
+class NoLoginPageIfLoggedIn(MiddlewareMixin):
+    def process_request(self, request):
+        LOGIN_PAGE = "/account/login"
+        user = getattr(request, 'user', None)
+        if user is None:
+            return None
+        if user.is_anonymous:
+            return None
+        if request.path.startswith(LOGIN_PAGE):
+            return HttpResponseRedirect(reverse("patientslisting"))
+        return None
+
 
 class EnforceTwoFactorAuthMiddleware(MiddlewareMixin):
     """

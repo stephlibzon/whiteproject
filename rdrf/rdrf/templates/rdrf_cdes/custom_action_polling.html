@@ -36,6 +36,10 @@
 	      taskFinished = true;
 	      $("#statusdiv").html("<b> The task failed</b>");
 	  }
+	  else if (result.status == "downloaded") {
+	      window.location.replace('{% url 'patientslisting' %}');
+	      return;
+	  }
 	  else {
 	      $("#statusdiv").html(messages.waiting);
 	  }

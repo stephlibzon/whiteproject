@@ -166,6 +166,7 @@ MIDDLEWARE = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django_otp.middleware.OTPMiddleware',
     'registry.common.middleware.EnforceTwoFactorAuthMiddleware',
+    'registry.common.middleware.NoLoginPageIfLoggedIn',
     'session_security.middleware.SessionSecurityMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',

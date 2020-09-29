@@ -341,6 +341,8 @@ class TaskInfoView(APIView):
             res = AsyncResult(task_id)
             if res.ready():
                 cae = CustomActionExecution.objects.get(task_id=task_id)
+                if cae.status == "downloaded":
+                    return Response({"status": "downloaded"})
                 cae.status = "task finished"
                 runtime_delta = datetime.now() - cae.created
                 cae.runtime = runtime_delta.seconds
