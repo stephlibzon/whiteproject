@@ -40,7 +40,7 @@ class RdrfRegistrationView(RegistrationView):
             context["first_name"] = workflow.first_name
             context["last_name"] = workflow.last_name
 
-        return self.render_to_response(context)
+        return self.render(context)
 
     def post(self, request, *args, **kwargs):
         token = request.session.get("token", None)

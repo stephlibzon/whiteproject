@@ -440,7 +440,7 @@ class PatientFormMixin(PatientMixin):
                      patient_relative_formset,
                      errors):
         has_errors = len(errors) > 0
-        return self.render_to_response(
+        return self.render(
             self.get_context_data(
                 form=patient_form,
                 all_errors=errors,
