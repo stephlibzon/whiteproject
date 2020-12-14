@@ -19,11 +19,13 @@ from rdrf.helpers.utils import MinType
 from rdrf.helpers.utils import consent_check
 from django.utils.translation import ugettext as _
 
+from rdrf.helpers.utils import LoginRequiredMixin
+
 import logging
 logger = logging.getLogger(__name__)
 
 
-class PatientsListingView(View):
+class PatientsListingView(View, LoginRequiredMixin):
 
     def __init__(self, *args, **kwargs):
         super(PatientsListingView, self).__init__(*args, **kwargs)
