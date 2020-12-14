@@ -5,7 +5,6 @@ import re
 from tempfile import NamedTemporaryFile
 
 from django.conf import settings
-from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 from django.urls import reverse
 from django.http import HttpResponse, FileResponse, HttpResponseRedirect, JsonResponse
