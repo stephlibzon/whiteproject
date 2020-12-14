@@ -10,7 +10,6 @@ from django.core.exceptions import PermissionDenied
 from django.urls import reverse
 from django.http import HttpResponse, FileResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, redirect
-from django.utils.decorators import method_decorator
 from django.views.generic.base import View
 
 from explorer import __version__
@@ -26,16 +25,9 @@ from rdrf.services.io.reporting.reporting_table import ReportingTableGenerator
 
 from rdrf.helpers.utils import models_from_mongo_key, is_delimited_key, BadKeyError, cached
 from rdrf.helpers.utils import mongo_key_from_models, check_suspicious_sql
+from rdrf.helpers.utils import LoginRequiredMixin
 
 logger = logging.getLogger(__name__)
-
-
-class LoginRequiredMixin(object):
-
-    @method_decorator(login_required)
-    def dispatch(self, request, *args, **kwargs):
-        return super(LoginRequiredMixin, self).dispatch(
-            request, *args, **kwargs)
 
 
 class MainView(LoginRequiredMixin, View):

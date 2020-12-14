@@ -28,7 +28,7 @@ from rdrf.models.definition.models import RDRFContext
 from rdrf.forms.consent_forms import CustomConsentFormGenerator
 from rdrf.helpers.utils import consent_status_for_patient
 from rdrf.helpers.utils import anonymous_not_allowed
-from rdrf.helpers.utils import LoginRequiredMixin, login_required_method
+from rdrf.helpers.utils import login_required_method
 
 from rdrf.db.contexts_api import RDRFContextManager
 from rdrf.db.contexts_api import RDRFContextError
