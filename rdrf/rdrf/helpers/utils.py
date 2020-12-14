@@ -8,6 +8,8 @@ from django.db import IntegrityError
 from django.db import transaction
 from django.utils.html import strip_tags
 from functools import total_ordering
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required
 
 import datetime
 import dateutil.parser
@@ -990,3 +992,14 @@ def supports_deidentification_workflow():
     if settings.DEIDENTIFIED_SITE_ID:
         return True
     return False
+
+
+login_required_method = method_decorator(login_required)
+
+
+class LoginRequiredMixin(object):
+
+    @login_required_method
+    def dispatch(self, request, *args, **kwargs):
+        return super(LoginRequiredMixin, self).dispatch(
+            request, *args, **kwargs)

@@ -28,6 +28,7 @@ from rdrf.models.definition.models import RDRFContext
 from rdrf.forms.consent_forms import CustomConsentFormGenerator
 from rdrf.helpers.utils import consent_status_for_patient
 from rdrf.helpers.utils import anonymous_not_allowed
+from rdrf.helpers.utils import LoginRequiredMixin, login_required_method
 
 from rdrf.db.contexts_api import RDRFContextManager
 from rdrf.db.contexts_api import RDRFContextError
@@ -60,19 +61,10 @@ from rdrf.views.custom_actions import CustomActionWrapper
 import logging
 
 logger = logging.getLogger(__name__)
-login_required_method = method_decorator(login_required)
 
 
 class RDRFContextSwitchError(Exception):
     pass
-
-
-class LoginRequiredMixin(object):
-
-    @login_required_method
-    def dispatch(self, request, *args, **kwargs):
-        return super(LoginRequiredMixin, self).dispatch(
-            request, *args, **kwargs)
 
 
 class CustomConsentHelper(object):
