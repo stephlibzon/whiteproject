@@ -111,6 +111,11 @@ DATABASES["reporting"] = {
     "PORT": env.get("reporting_dbport", DATABASES["default"]["PORT"]),
 }
 
+
+DATABASES['clinical'] = DATABASES['default']
+DATABASES['reporting'] = DATABASES['default']
+
+
 DATABASE_ROUTERS = ["rdrf.db.db.RegistryRouter"]
 
 DEIDENTIFIED_SITE_ID = env.get("deidentified_site_id", "")
