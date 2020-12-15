@@ -2,6 +2,8 @@
 set +x
 set -e
 
+# testing
+
 : "${CCG_DOCKER_ORG:=muccg}"
 : "${CCG_COMPOSER:=ccg-composer}"
 : "${CCG_COMPOSER_VERSION:=latest}"
