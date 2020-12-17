@@ -205,7 +205,14 @@ function _aloe() {
     export DJANGO_SETTINGS_MODULE="${DJANGO_SETTINGS_MODULE}"_test
     shift
     set -x
-    exec django-admin.py harvest --with-xunit --xunit-file="${WRITABLE_DIRECTORY}"/tests.xml --verbosity=3 "$@"
+
+    if [ "${DESIGN_MODE}" = 1 ]; then
+        exec django-admin.py harvest --with-xunit --xunit-file="${WRITABLE_DIRECTORY}"/tests.xml --verbosity=3 "$@"
+    fi
+
+    if [ "${DESIGN_MODE}" != 1 ]; then
+        exec django-admin.py harvest -a '!design_mode' --with-xunit --xunit-file="${WRITABLE_DIRECTORY}"/tests.xml --verbosity=3 "$@"
+    fi
 }
 
 

@@ -1,3 +1,4 @@
+@design_mode
 Feature: Hiding unneeded validation options on the CDE admin page
   As an owner of a registry on RDRF
   I want administrators to only use the correct CDE validation options
