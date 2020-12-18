@@ -26,6 +26,7 @@ services:
       - CLINICAL_DBSERVER=dbclinicaltest
       - DBSERVER=dbtest
       - CACHESERVER=cachetest
+      - RUN_DESIGN_MODE_TESTS=1
     volumes_from:
       - datadevselenium
 

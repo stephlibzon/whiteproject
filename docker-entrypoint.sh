@@ -206,11 +206,11 @@ function _aloe() {
     shift
     set -x
 
-    if [ "${DESIGN_MODE}" = 1 ]; then
+    if [ "${RUN_DESIGN_MODE_TESTS}" = 1 ]; then
         exec django-admin.py harvest --with-xunit --xunit-file="${WRITABLE_DIRECTORY}"/tests.xml --verbosity=3 "$@"
     fi
 
-    if [ "${DESIGN_MODE}" != 1 ]; then
+    if [ "${RUN_DESIGN_MODE_TESTS}" != 1 ]; then
         exec django-admin.py harvest -a '!design_mode' --with-xunit --xunit-file="${WRITABLE_DIRECTORY}"/tests.xml --verbosity=3 "$@"
     fi
 }
