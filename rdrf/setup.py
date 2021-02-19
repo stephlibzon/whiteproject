@@ -40,7 +40,7 @@ requirements = [
     "SQLAlchemy==1.3.20",
     "uwsgi==2.0.19.1",
     "django-formtools==2.2",
-    "django-otp==1.0.1",
+    "django-otp==0.9.4",
     "django-phonenumber-field==4.0.0",
     "django-two-factor-auth==1.12.1",
     "phonenumberslite==8.12.11",
