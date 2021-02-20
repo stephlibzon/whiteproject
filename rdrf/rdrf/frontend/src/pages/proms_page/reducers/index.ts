@@ -3,6 +3,7 @@ import { createAction, handleActions } from 'redux-actions';
 
 import { evalElements } from '../logic';
 
+// these are the action types
 export const goPrevious = createAction("PROMS_PREVIOUS");
 export const goNext = createAction("PROMS_NEXT");
 export const submitAnswers = createAction("PROMS_SUBMIT");
@@ -30,36 +31,36 @@ function submitSurvey(answers: { [index: string]: string }) {
 const initialState = {
     stage: 0,
     answers: {},
-    questions: evalElements(window.proms_config.questions, { answers: {} }),
+    questions: (window.proms_config) ? evalElements(window.proms_config.questions, { answers: {} }) : {},
     title: '',
     isValid: true,
 }
 
-function isCond(state) {
-    const stage = state.stage;
-    return state.questions[stage].tag === 'cond';
-}
+//function isCond(state) {
+//    const stage = state.stage;
+//    return state.questions[stage].tag === 'cond';
+//}
 
 function updateAnswers(action: any, state: any): any {
     // if data entered , update the answers object
     const cdeCode = action.payload.cde;
     const newValue = action.payload.value;
-    const isValid = action.payload.isValid;
+    //const isValid = action.payload.isValid;
     const oldAnswers = state.answers;
     const newAnswers = { ...oldAnswers };
     newAnswers[cdeCode] = newValue;
     return newAnswers;
 }
 
-function clearAnswerOnSwipeBack(state: any): any {
+//function clearAnswerOnSwipeBack(state: any): any {
     // clear the answer when move to previous question
-    const stage = state.stage;
-    const questionCode = state.questions[stage].cde;
-    const oldAnswers = state.answers;
-    const newAnswers = { ...oldAnswers };
-    delete newAnswers[questionCode];
-    return newAnswers;
-}
+//    const stage = state.stage;
+//    const questionCode = state.questions[stage].cde;
+//    const oldAnswers = state.answers;
+//    const newAnswers = { ...oldAnswers };
+//    delete newAnswers[questionCode];
+//    return newAnswers;
+//}
 
 function updateConsent(state: any): any {
     const questionCount = state.questions.length;
@@ -75,6 +76,7 @@ function updateConsent(state: any): any {
     return allAnswers;
 }
 
+// handleActions creates reducers that specify the state changes based on the actions sent to store
 export const promsPageReducer = handleActions({
     [goPrevious as any]:
         (state, action: any) => ({
